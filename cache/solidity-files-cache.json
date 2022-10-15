@@ -39,8 +39,8 @@
       ]
     },
     "/home/codespicer/Documents/Repos/geo-blockchain/contracts/geoBlockchain.sol": {
-      "lastModificationDate": 1665596723997,
-      "contentHash": "5d09245fa7e4c1e1067ac9364854b1da",
+      "lastModificationDate": 1665817148797,
+      "contentHash": "e91e884839d266287bf096433f84d335",
       "sourceName": "contracts/geoBlockchain.sol",
       "solcConfig": {
         "version": "0.8.4",

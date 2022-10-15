@@ -11,6 +11,8 @@ contract geoBlockchain {
     geoBlockchain.UserType userType;
   }
 
+  string public name = "geobc";
+
   mapping(address => userInfo) public Users; 
 
     using Counters for Counters.Counter ;
@@ -22,8 +24,7 @@ contract geoBlockchain {
       Consumer
     }
 
-    function
-    createUser(string memory _userName, string memory _Address, string memory _contactNumber, string memory _location, string memory _AadharId, uint _type) public {
+    function createUser(string memory _userName, string memory _Address, string memory _contactNumber, string memory _location, string memory _AadharId, uint _type) public {
       userIds.increment();
 
       uint index = userIds.current();
@@ -42,4 +43,9 @@ contract geoBlockchain {
         revert("Wrong user type entered");
       }
     }
+
+    function getInfo( address addr) public view returns (userInfo memory ) {
+      return Users[addr];
+    }
+
 }

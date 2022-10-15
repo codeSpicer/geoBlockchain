@@ -15,6 +15,9 @@ function MyApp({ Component, pageProps }) {
           <Link href="/create-user">
             <a className="mr-4 text-white text-lg">Register</a>
           </Link>
+          <Link href="/profile">
+            <a className="mr-4 text-white text-lg">Profile</a>
+          </Link>
         </div>
       </nav>
       <Component {...pageProps} />
