@@ -49,7 +49,7 @@ const Register = () => {
 
     await transaction.wait();
 
-    router.push("/");
+    router.push("/profile");
   }
 
   return (
