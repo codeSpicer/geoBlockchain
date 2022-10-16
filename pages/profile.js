@@ -23,74 +23,91 @@ const profile = () => {
     _type: "",
   });
   const [userAdd, updateAdderess] = useState("");
+  const [isConnected, updateIsConnected] = useState(false);
 
   async function getDetails() {
-    const web3Modal = new Web3Modal();
-    const connection = await web3Modal.connect();
-    const provider = new ethers.providers.Web3Provider(connection);
-    const signer = provider.getSigner();
+    try {
+      const web3Modal = new Web3Modal();
+      const connection = await web3Modal.connect();
+      const provider = new ethers.providers.Web3Provider(connection);
+      const signer = provider.getSigner();
 
-    const address = await signer.getAddress();
-    updateAdderess(address);
+      const address = await signer.getAddress();
+      updateAdderess(address);
 
-    // const provider = new ethers.providers.JsonRpcProvider(
-    //   `${process.env.INFURA_MAINNET}${process.env.APIKEY}`
-    // );
+      // const provider = new ethers.providers.JsonRpcProvider(
+      //   `${process.env.INFURA_MAINNET}${process.env.APIKEY}`
+      // );
 
-    let contract = new ethers.Contract(
-      GeoBlockchainAddress,
-      geoBlockchain.abi,
-      provider
-    );
+      let contract = new ethers.Contract(
+        GeoBlockchainAddress,
+        geoBlockchain.abi,
+        provider
+      );
 
-    let info = await contract.getInfo(address);
+      let info = await contract.getInfo(address);
 
-    const userAddress = info.user;
-    const userType = info.userType;
+      const userAddress = info.user;
+      const userType = info.userType;
 
-    let contractChild = new ethers.Contract(
-      userAddress,
-      userContract.abi,
-      provider
-    );
+      let contractChild = new ethers.Contract(
+        userAddress,
+        userContract.abi,
+        provider
+      );
 
-    const name = await contractChild.userName();
-    const Address = await contractChild.Address();
-    const contactNumber = await contractChild.contactNumber();
-    const location = await contractChild.location();
-    const AadharId = await contractChild.AadharId();
+      const name = await contractChild.userName();
+      const Address = await contractChild.Address();
+      const contactNumber = await contractChild.contactNumber();
+      const location = await contractChild.location();
+      const AadharId = await contractChild.AadharId();
 
-    updateDetails({
-      ...details,
-      _AadharId: AadharId,
-      _userName: name,
-      _Address: Address,
-      _contactNumber: contactNumber,
-      _location: location,
-    });
+      updateDetails({
+        ...details,
+        _AadharId: AadharId,
+        _userName: name,
+        _Address: Address,
+        _contactNumber: contactNumber,
+        _location: location,
+      });
+      updateIsConnected(true);
+    } catch (e) {
+      console.log(e);
+    }
   }
-  return (
-    <div>
-      <div className="p-4">
-        <h2 className="text-2xl py-2">{userAdd}</h2>
-        <div className="border shadow rounded-xl overflow-hidden w-2/5">
-          <div className="p-4">
-            <p className="text-2xl font-bold  ">Name - {details._userName}</p>
-            <p className="text-2xl font-bold ">
-              Contact Number - {details._contactNumber}
-            </p>
-            <p className="text-2xl font-bold ">Address - {details._Address}</p>
-            <p className="text-2xl font-bold ">
-              Location - {details._location}
-            </p>
-            <p className="text-2xl font-bold ">
-              Aadhar Number - {details._AadharId}
-            </p>
+
+  if (userAdd && isConnected) {
+    return (
+      <div>
+        <div className="p-4">
+          <h2 className="text-2xl py-2">{userAdd}</h2>
+          <div className="border shadow rounded-xl overflow-hidden w-2/5">
+            <div className="p-4">
+              <p className="text-2xl font-bold  ">Name - {details._userName}</p>
+              <p className="text-2xl font-bold ">
+                Contact Number - {details._contactNumber}
+              </p>
+              <p className="text-2xl font-bold ">
+                Address - {details._Address}
+              </p>
+              <p className="text-2xl font-bold ">
+                Location - {details._location}
+              </p>
+              <p className="text-2xl font-bold ">
+                Aadhar Number - {details._AadharId}
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <h2 className="text-2xl h-[32rem] items-center justify-center	flex ">
+        Login and Register to view profile
+      </h2>
+    );
+  }
 };
 
 export default profile;
