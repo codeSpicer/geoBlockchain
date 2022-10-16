@@ -80,7 +80,7 @@ const profile = () => {
     return (
       <div>
         <div className="p-4">
-          <h2 className="text-2xl py-2">{userAdd}</h2>
+          {/* <h2 className="text-2xl py-2">{userAdd}</h2> */}
           <div className="border shadow rounded-xl overflow-hidden w-2/5">
             <div className="p-4">
               <p className="text-2xl font-bold  ">Name - {details._userName}</p>
