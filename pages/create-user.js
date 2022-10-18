@@ -91,12 +91,18 @@ const Register = () => {
           }
         />
         <input
-          placeholder="Type of individual"
+          placeholder="Type of individual  ONLY ENTER  0 , 1  , 2"
           className="mt-2 border rounded p-4"
           onChange={(e) =>
             updateFormInput({ ...formInput, _type: e.target.value })
           }
         />
+        {/* <select name="state" className="mt-2 border rounded p-4">
+          <option value=" ">Please select user type</option>
+          <option>Farmer</option>
+          <option>Supplier</option>
+          <option>Consumer</option>
+        </select> */}
 
         <button
           onClick={AddUser}
