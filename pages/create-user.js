@@ -38,13 +38,16 @@ const Register = () => {
 
     // need to add input checks here so they dont make into tx
 
+    // console.log(typeof formInput._type);
+    // console.log(formInput._type);
+
     let transaction = await contract.createUser(
       formInput._userName,
       formInput._Address,
       formInput._contactNumber,
       formInput._location,
       formInput._AadharId,
-      formInput._type
+      Number(formInput._type)
     );
 
     await transaction.wait();
@@ -58,6 +61,7 @@ const Register = () => {
         <input
           placeholder="Name"
           className="mt-8 border rounded p-4"
+          type="text"
           onChange={(e) =>
             updateFormInput({ ...formInput, _userName: e.target.value })
           }
@@ -78,6 +82,7 @@ const Register = () => {
         />
         <input
           placeholder="Contact Number"
+          type="number"
           className="mt-2 border rounded p-4"
           onChange={(e) =>
             updateFormInput({ ...formInput, _contactNumber: e.target.value })
@@ -91,12 +96,20 @@ const Register = () => {
           }
         />
         <input
-          placeholder="Type of individual"
+          placeholder="Type of individual  ONLY ENTER  1 , 2  , 3"
           className="mt-2 border rounded p-4"
           onChange={(e) =>
             updateFormInput({ ...formInput, _type: e.target.value })
           }
         />
+        {/* <select className="mt-2 border rounded p-4" required={true}>
+          <option value="">Please select user type</option>
+          <option value={"1"}>Farmer</option>
+          <option value={2}>Supplier</option>
+          <option value="3">Consumer</option>
+          onChange=
+          {(e) => updateFormInput({ ...formInput, _type: e.target.value })}
+        </select> */}
 
         <button
           onClick={AddUser}
