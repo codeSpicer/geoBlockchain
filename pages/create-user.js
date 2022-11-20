@@ -15,16 +15,12 @@ const Register = () => {
     _location: "",
     _contactNumber: "",
     _AadharId: "",
-    _type: "",
+    _type: "1",
   });
   const router = useRouter();
 
-  //   async function onChange(e) {
-  //     console.log(e.target);
-  //   }
-
   async function AddUser() {
-    console.log(formInput);
+    // console.log(formInput);
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
@@ -35,11 +31,6 @@ const Register = () => {
       geoBlockchain.abi,
       signer
     );
-
-    // need to add input checks here so they dont make into tx
-
-    // console.log(typeof formInput._type);
-    // console.log(formInput._type);
 
     let transaction = await contract.createUser(
       formInput._userName,
@@ -95,21 +86,13 @@ const Register = () => {
             updateFormInput({ ...formInput, _AadharId: e.target.value })
           }
         />
-        <input
-          placeholder="Type of individual  ONLY ENTER  1 , 2  , 3"
-          className="mt-2 border rounded p-4"
-          onChange={(e) =>
-            updateFormInput({ ...formInput, _type: e.target.value })
-          }
-        />
-        {/* <select className="mt-2 border rounded p-4" required={true}>
-          <option value="">Please select user type</option>
-          <option value={"1"}>Farmer</option>
-          <option value={2}>Supplier</option>
+        <select className="mt-2 border rounded p-4" required={true}>
+          <option value="1">Farmer</option>
+          <option value="2">Supplier</option>
           <option value="3">Consumer</option>
           onChange=
           {(e) => updateFormInput({ ...formInput, _type: e.target.value })}
-        </select> */}
+        </select>
 
         <button
           onClick={AddUser}
