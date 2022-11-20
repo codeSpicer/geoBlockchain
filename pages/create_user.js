@@ -4,9 +4,9 @@ import { ethers } from "ethers";
 import { useRouter } from "next/router";
 import Web3Modal from "web3modal";
 
-import { GeoBlockchainAddress } from "../config";
+import { GeoBlockchainAddress } from "../config"; // address where main contract is deployed
 
-import geoBlockchain from "../artifacts/contracts/geoBlockchain.sol/geoBlockchain.json";
+import geoBlockchain from "../artifacts/contracts/geoBlockchain.sol/geoBlockchain.json"; // importing ABI
 
 const Register = () => {
   const [formInput, updateFormInput] = useState({
@@ -16,34 +16,54 @@ const Register = () => {
     _contactNumber: "",
     _AadharId: "",
     _type: "1",
-  });
+  }); // state to store the form data
+
+  const findLocation = () => {
+    const success = (pos) => {
+      const coordinates = pos.coords.latitude + " " + pos.coords.longitude;
+      console.log(coordinates);
+      updateFormInput({ ...formInput, _location: coordinates });
+    };
+    const error = () => {
+      console.log("Could not retrieve location");
+    };
+    navigator.geolocation.getCurrentPosition(success, error);
+  };
+
   const router = useRouter();
 
   async function AddUser() {
-    // console.log(formInput);
+    findLocation();
+    // when form is submitted add user is called
+
+    console.log(formInput);
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
-    const signer = provider.getSigner();
+    const signer = provider.getSigner(); // connecting to wallet and getting signer
 
     let contract = new ethers.Contract(
       GeoBlockchainAddress,
       geoBlockchain.abi,
       signer
-    );
+    ); // making contract instance to call methods
 
-    let transaction = await contract.createUser(
-      formInput._userName,
-      formInput._Address,
-      formInput._contactNumber,
-      formInput._location,
-      formInput._AadharId,
-      Number(formInput._type)
-    );
+    try {
+      let transaction = await contract.createUser(
+        formInput._userName,
+        formInput._Address,
+        formInput._contactNumber,
+        formInput._location,
+        formInput._AadharId,
+        Number(formInput._type)
+      ); // creating user using inputs from form
 
-    await transaction.wait();
-
-    router.push("/profile");
+      await transaction.wait();
+      router.push("/profile");
+      // after transaction is made moves to profile tab
+    } catch {
+      console.log("Transaction failed");
+    }
   }
 
   return (
@@ -62,13 +82,6 @@ const Register = () => {
           className="mt-2 border rounded p-4"
           onChange={(e) =>
             updateFormInput({ ...formInput, _Address: e.target.value })
-          }
-        />
-        <textarea
-          placeholder="Location"
-          className="mt-2 border rounded p-4"
-          onChange={(e) =>
-            updateFormInput({ ...formInput, _location: e.target.value })
           }
         />
         <input
