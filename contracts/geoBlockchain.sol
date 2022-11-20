@@ -24,7 +24,6 @@ contract geoBlockchain {
     mapping(address => bool) whitelisted;
   }
 
-  string public contract_name = "geobc";
 
   mapping(address => User) public Users; 
   mapping(address => bool) userCreated;

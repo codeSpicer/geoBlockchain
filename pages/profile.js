@@ -7,7 +7,7 @@ import Web3Modal from "web3modal";
 import { GeoBlockchainAddress } from "../config";
 
 import geoBlockchain from "../artifacts/contracts/geoBlockchain.sol/geoBlockchain.json";
-import userContract from "../artifacts/contracts/User.sol/User.json";
+import userContract from "../artifacts/contracts/UserContract.sol/UserContract.json";
 
 const profile = () => {
   useEffect(() => {
@@ -34,6 +34,7 @@ const profile = () => {
 
       const address = await signer.getAddress();
       updateAdderess(address);
+      // console.log(address);
 
       // const provider = new ethers.providers.JsonRpcProvider(
       //   `${process.env.INFURA_MAINNET}${process.env.APIKEY}`
@@ -47,7 +48,7 @@ const profile = () => {
 
       let info = await contract.getInfo(address);
 
-      const userAddress = info.user;
+      const userAddress = info.user_contract;
       const userType = info.userType;
 
       let contractChild = new ethers.Contract(

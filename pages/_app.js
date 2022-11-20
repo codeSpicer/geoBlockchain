@@ -37,11 +37,14 @@ function MyApp({ Component, pageProps }) {
                 <Link href="/">
                   <a className="mr-4 text-white text-lg">Home</a>
                 </Link>
-                <Link href="/create-user">
+                <Link href="/create_user">
                   <a className="mr-4 text-white text-lg">Register</a>
                 </Link>
                 <Link href="/profile">
                   <a className="mr-4 text-white text-lg">Profile</a>
+                </Link>
+                <Link href="/create_product">
+                  <a className="mr-4 text-white text-lg">Add Product</a>
                 </Link>
               </div>
             </div>
