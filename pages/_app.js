@@ -46,6 +46,9 @@ function MyApp({ Component, pageProps }) {
                 <Link href="/create_product">
                   <a className="mr-4 text-white text-lg">Add Product</a>
                 </Link>
+                <Link href="/find">
+                  <a className="mr-4 text-white text-lg">Find</a>
+                </Link>
               </div>
             </div>
             <div>
