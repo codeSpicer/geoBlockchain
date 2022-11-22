@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import { useRouter } from "next/router";
 import Web3Modal from "web3modal";
@@ -9,6 +9,10 @@ import { GeoBlockchainAddress } from "../config"; // address where main contract
 import geoBlockchain from "../artifacts/contracts/geoBlockchain.sol/geoBlockchain.json"; // importing ABI
 
 const Register = () => {
+  useEffect(() => {
+    findLocation();
+  }, []); // to store current user location as soon as the page renders
+
   const [formInput, updateFormInput] = useState({
     _userName: "",
     _Address: "",
@@ -28,12 +32,11 @@ const Register = () => {
       console.log("Could not retrieve location");
     };
     navigator.geolocation.getCurrentPosition(success, error);
-  };
+  }; // to retreive coordinate of user
 
   const router = useRouter();
 
   async function AddUser() {
-    findLocation();
     // when form is submitted add user is called
 
     console.log(formInput);
@@ -86,7 +89,6 @@ const Register = () => {
         />
         <input
           placeholder="Contact Number"
-          type="number"
           className="mt-2 border rounded p-4"
           onChange={(e) =>
             updateFormInput({ ...formInput, _contactNumber: e.target.value })

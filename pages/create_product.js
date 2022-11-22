@@ -8,7 +8,7 @@ import { GeoBlockchainAddress } from "../config";
 
 import geoBlockchain from "../artifacts/contracts/geoBlockchain.sol/geoBlockchain.json";
 
-const addProduct = () => {
+const AddProduct = () => {
   const [formInput, updateFormInput] = useState({
     product_id: "",
     product_name: "",
@@ -116,4 +116,4 @@ const addProduct = () => {
   );
 };
 
-export default addProduct;
+export default AddProduct;

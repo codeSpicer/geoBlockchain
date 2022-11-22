@@ -5,7 +5,9 @@ import styles from "../styles/Home.module.css";
 export default function Home() {
   return (
     <div>
-      <h1 className="text-9xl ">home page</h1>
+      <h1 className="text-2xl h-[32rem] items-center justify-center	flex ">
+        home page
+      </h1>
     </div>
   );
 }

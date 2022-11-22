@@ -9,7 +9,7 @@ import { GeoBlockchainAddress } from "../config";
 import geoBlockchain from "../artifacts/contracts/geoBlockchain.sol/geoBlockchain.json";
 import userContract from "../artifacts/contracts/UserContract.sol/UserContract.json";
 
-const profile = () => {
+const Profile = () => {
   useEffect(() => {
     getDetails();
   }, []);
@@ -104,11 +104,13 @@ const profile = () => {
     );
   } else {
     return (
-      <h2 className="text-2xl h-[32rem] items-center justify-center	flex ">
-        Login and Register to view profile
-      </h2>
+      <div>
+        <h2 className="text-2xl h-[32rem] items-center justify-center	flex ">
+          Login and Register to view Profile
+        </h2>
+      </div>
     );
   }
 };
 
-export default profile;
+export default Profile;
