@@ -29,6 +29,18 @@ This will compile and deploy the smart contract to local blockchain.
 
 The user needs to have Metamask installed in their browser and also needs to import the private keys of the from hardhat.
 
+## Details about the smart contract 
+
+The first contract is called UserContract and it stores basic user information such as name, address, contact number, location, and Aadhar ID. It also has a function addProduct which is used to add a product ID to the user's information. This contract can only be updated through delegate calls by the parent contract, which is the geoBlockchain contract.
+
+The second contract is called geoBlockchain and it manages the entire supply chain process by creating and managing products, and tracking their movement. It has a struct called User which stores the user contract address and their user type (producer, supplier, or consumer). It also has a struct called Product which stores information such as the product ID, name, category, quantity, created by, current location, location history, users who have updated the location, created date, and a mapping of whitelisted users who can modify the product state.
+
+The geoBlockchain contract has several functions such as createUser which creates a new user with a specified user type, addProduct which is used by producers to create a new product and add it to their user information, and updateProductLocation which is used by whitelisted users to update the current location of a product. There are also functions to update the product whitelist and get product information.
+
+These contracts work together by the UserContract being called from the geoBlockchain contract to add a product ID to a user's information. The geoBlockchain contract manages the entire supply chain process and tracks the movement of products through the functions it provides such as creating new users, adding new products, and updating the location and whitelist of products.
+
+
+
 Technologies Used
 Blockchain
 Solidity
